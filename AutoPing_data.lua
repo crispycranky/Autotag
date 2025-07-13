@@ -11,8 +11,8 @@ return {
 				setting_id = "cd",
 				type = "numeric",
 				default_value = 10,
-				range = {2, 10},
-				decimals_number = 1,
+				range = {1, 30},
+				decimals_number = 1,  
 			},
 			{
 				setting_id = "manualoverride",
@@ -24,271 +24,412 @@ return {
 				type = "checkbox",
 				default_value = true
 			},
-			-- Enemy Breed Checkboxes --
 			{
-				setting_id = "enemy_type_chaos_armored_infected",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Chaos Armored Infected",
+				setting_id = "filter_mode",
+				type = "dropdown",
+				default_value = "high_priority_only",
+				options = {
+					{text = "filter_mode_all_pingable", value = "all_pingable"},
+					{text = "filter_mode_high_priority", value = "high_priority_only"},
+					{text = "filter_mode_specials_elites", value = "specials_and_elites"},
+					{text = "filter_mode_custom", value = "custom"}
+				}
 			},
 			{
-				setting_id = "enemy_type_chaos_beast_of_nurgle",
+				setting_id = "priority_targeting",
 				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Chaos Beast of Nurgle",
+				default_value = false
 			},
 			{
-				setting_id = "enemy_type_chaos_daemonhost",
+				setting_id = "companion_attack_mode",
 				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Chaos Daemonhost",
+				default_value = false
 			},
 			{
-				setting_id = "enemy_type_chaos_hound",
+				setting_id = "debug_mode",
+				type = "checkbox",
+				default_value = false
+			},
+			-- Priority Level Settings
+			{
+				setting_id = "priority_settings_header",
+				type = "group",
+				sub_widgets = {
+					-- Boss Enemies (Priority 1 - Fixed to include all bosses)
+					{
+						setting_id = "priority_chaos_beast_of_nurgle",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_plague_ogryn",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_daemonhost",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_spawn",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					-- High Priority Enemies (Specials/Disablers)
+					{
+						setting_id = "priority_cultist_flamer",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_flamer",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_netgunner",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_sniper",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_cultist_grenadier",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_grenadier",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_hound",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_poxwalker_bomber",
+						type = "dropdown",
+						default_value = "high",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					-- Medium Priority Enemies (Elites)
+					{
+						setting_id = "priority_renegade_gunner",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_cultist_gunner",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_shocktrooper",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_cultist_shocktrooper",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_ogryn_executor",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_ogryn_gunner",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_chaos_ogryn_bulwark",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_executor",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_renegade_berzerker",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_cultist_berzerker",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					},
+					{
+						setting_id = "priority_cultist_mutant",
+						type = "dropdown",
+						default_value = "medium",
+						options = {
+							{text = "priority_high", value = "high"},
+							{text = "priority_medium", value = "medium"},
+							{text = "priority_disabled", value = "disabled"}
+						}
+					}
+				}
+			},
+			-- Legacy Custom Mode Settings (kept for backward compatibility)
+			{
+				setting_id = "tag_cultist_flamer",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Hound",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_hound_mutator",
+				setting_id = "tag_renegade_flamer",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Hound Mutator",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_lesser_mutated_poxwalker",
+				setting_id = "tag_renegade_netgunner",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Lesser Mutated Poxwalker",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_mutated_poxwalker",
+				setting_id = "tag_renegade_sniper",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Mutated Poxwalker",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_mutator_daemonhost",
+				setting_id = "tag_cultist_grenadier",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Mutator Daemonhost",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_mutator_ritualist",
+				setting_id = "tag_renegade_grenadier",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Mutator Ritualist",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_newly_infected",
+				setting_id = "tag_chaos_hound",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Newly Infected",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_ogryn_bulwark",
+				setting_id = "tag_cultist_berzerker",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Ogryn Bulwark",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_ogryn_executor",
+				setting_id = "tag_renegade_berzerker",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Ogryn Executor",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_ogryn_gunner",
+				setting_id = "tag_chaos_poxwalker_bomber",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Ogryn Gunner",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_plague_ogryn",
+				setting_id = "tag_renegade_gunner",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Plague Ogryn",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_poxwalker_bomber",
+				setting_id = "tag_cultist_gunner",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Poxwalker Bomber",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_poxwalker",
+				setting_id = "tag_renegade_shocktrooper",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Poxwalker",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_chaos_spawn",
+				setting_id = "tag_cultist_shocktrooper",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Chaos Spawn",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_assault",
+				setting_id = "tag_chaos_ogryn_executor",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Assault",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_berzerker",
+				setting_id = "tag_chaos_ogryn_gunner",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Berzerker",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_captain",
+				setting_id = "tag_chaos_ogryn_bulwark",
 				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Cultist Captain",
+				default_value = false,
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_flamer",
+				setting_id = "tag_renegade_executor",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Flamer",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_grenadier",
+				setting_id = "tag_chaos_spawn",
 				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Cultist Grenadier",
+				default_value = false,
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_gunner",
+				setting_id = "tag_cultist_mutant",
+				type = "checkbox",
+				default_value = false,
+				show_widget = function() return mod:get("filter_mode") == "custom" end
+			},
+			-- Boss enemies for custom mode
+			{
+				setting_id = "tag_chaos_beast_of_nurgle",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Gunner",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_melee",
+				setting_id = "tag_chaos_plague_ogryn",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Melee",
+				show_widget = function() return mod:get("filter_mode") == "custom" end
 			},
 			{
-				setting_id = "enemy_type_cultist_mutant",
+				setting_id = "tag_chaos_daemonhost",
 				type = "checkbox",
 				default_value = true,
-				ui_name = "Tag Cultist Mutant",
-			},
-			{
-				setting_id = "enemy_type_cultist_mutant_mutator",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Cultist Mutant Mutator",
-			},
-			{
-				setting_id = "enemy_type_cultist_ritualist",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Cultist Ritualist",
-			},
-			{
-				setting_id = "enemy_type_cultist_shocktrooper",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Cultist Shocktrooper",
-			},
-			{
-				setting_id = "enemy_type_renegade_assault",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Assault",
-			},
-			{
-				setting_id = "enemy_type_renegade_berzerker",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Berzerker",
-			},
-			{
-				setting_id = "enemy_type_renegade_captain",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Captain",
-			},
-			{
-				setting_id = "enemy_type_renegade_executor",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Executor",
-			},
-			{
-				setting_id = "enemy_type_renegade_flamer",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Flamer",
-			},
-			{
-				setting_id = "enemy_type_renegade_grenadier",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Grenadier",
-			},
-			{
-				setting_id = "enemy_type_renegade_gunner",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Gunner",
-			},
-			{
-				setting_id = "enemy_type_renegade_melee",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Melee",
-			},
-			{
-				setting_id = "enemy_type_renegade_netgunner",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Netgunner",
-			},
-			{
-				setting_id = "enemy_type_renegade_rifleman",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Rifleman",
-			},
-			{
-				setting_id = "enemy_type_renegade_shocktrooper",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Shocktrooper",
-			},
-			{
-				setting_id = "enemy_type_renegade_sniper",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Sniper",
-			},
-			{
-				setting_id = "enemy_type_renegade_twin_captain",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Twin Captain",
-			},
-			{
-				setting_id = "enemy_type_renegade_twin_captain_two",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Renegade Twin Captain Two",
-			},
-			{
-				setting_id = "enemy_type_human_breed",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Human",
-			},
-			{
-				setting_id = "enemy_type_ogryn_breed",
-				type = "checkbox",
-				default_value = true,
-				ui_name = "Tag Ogryn",
-			},
+				show_widget = function() return mod:get("filter_mode") == "custom" end
+			}
 		}
 	}
 }
